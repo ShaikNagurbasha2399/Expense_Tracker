@@ -132,7 +132,13 @@ if not df.empty:
     
     # Export to CSV
     st.header("💾 Export Data")
-    csv = df.to_csv(index=False)
+    
+    # Format dataframe for export
+    export_df = df.copy()
+    export_df['date'] = pd.to_datetime(export_df['date']).dt.strftime('%Y-%m-%d')
+    export_df = export_df[['id', 'date', 'type', 'category', 'amount', 'description']]
+    
+    csv = export_df.to_csv(index=False)
     st.download_button(
         label="Download CSV",
         data=csv,
