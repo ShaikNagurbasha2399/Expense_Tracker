@@ -116,9 +116,11 @@ if not df.empty:
     
     # Display dataframe with delete option
     for idx, row in df.iterrows():
-        col1, col2, col3, col4, col5, col6 = st.columns([2, 1, 1, 1, 2, 1])
+        col1, col2, col3, col4, col5, col6 = st.columns([1.5, 1, 1, 1, 2, 0.5])
         
-        col1.write(row['date'])
+        # Format date to display properly
+        date_str = pd.to_datetime(row['date']).strftime('%Y-%m-%d')
+        col1.write(date_str)
         col2.write(row['type'])
         col3.write(row['category'])
         col4.write(f"₹{row['amount']:,.2f}")
