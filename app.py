@@ -135,10 +135,11 @@ if not df.empty:
     
     # Format dataframe for export
     export_df = df.copy()
-    export_df['date'] = pd.to_datetime(export_df['date']).dt.strftime('%Y-%m-%d')
+    export_df['date'] = pd.to_datetime(export_df['date']).dt.date  # Convert to date object
     export_df = export_df[['id', 'date', 'type', 'category', 'amount', 'description']]
     
-    csv = export_df.to_csv(index=False)
+    # Create CSV with proper formatting
+    csv = export_df.to_csv(index=False, date_format='%Y-%m-%d')
     st.download_button(
         label="Download CSV",
         data=csv,
